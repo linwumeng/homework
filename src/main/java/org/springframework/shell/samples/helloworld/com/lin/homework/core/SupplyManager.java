@@ -3,6 +3,7 @@ package org.springframework.shell.samples.helloworld.com.lin.homework.core;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
+import org.apache.log4j.Logger;
 import org.springframework.shell.samples.helloworld.com.lin.homework.core.model.Material;
 import org.springframework.shell.samples.helloworld.com.lin.homework.core.model.Product;
 import org.springframework.shell.samples.helloworld.com.lin.homework.core.model.Recipe;
@@ -18,6 +19,8 @@ import java.util.TreeSet;
  */
 public class SupplyManager {
 
+    private static Logger LOGGER = Logger.getLogger(SupplyManager.class);
+    
     private Product product;
     private NavigableSet<Recipe> recipes = new TreeSet<>();
 
@@ -53,39 +56,39 @@ public class SupplyManager {
 
     //Assume floor and ceiling are not overlapping
     private void merge(Recipe mergee, Recipe floor, Recipe ceiling) {
-//        System.out.println(String.format("mergee:%s, floor:%s, ceiling:%s", mergee, floor, ceiling));
+        LOGGER.debug(String.format("mergee:%s, floor:%s, ceiling:%s", mergee, floor, ceiling));
 
 
         if ( recipes.isEmpty() ) {
-//            System.out.println(String.format("add empty %s", mergee));
+            LOGGER.debug(String.format("add empty %s", mergee));
             recipes.add(mergee);
         } else if ((null == floor || mergee.after(floor)) && (null == ceiling || mergee.before(ceiling))) {
             // f |===|
             // c        |=====|
             // m     |==|
-//            System.out.println(String.format("add gap %s,%s,%s", floor, mergee, ceiling));
+            LOGGER.debug(String.format("add gap %s,%s,%s", floor, mergee, ceiling));
             recipes.add(mergee);
         } else if (null != floor && floor.enclose(mergee)) {
             // f |=====|
             // c       |===|
             // m   |==|
-//            System.out.println(String.format("add enclosed %s,%s", mergee, floor));
+            LOGGER.debug(String.format("add enclosed %s,%s", mergee, floor));
             enclosedMerge(mergee, floor, floor);
         } else if (null != ceiling && mergee.enclose(ceiling)) {
             // f |===|
             // c     |==|
             // m     |=====|
-//            System.out.println(String.format("add enclosing %s,%s", ceiling, mergee));
+            LOGGER.debug(String.format("add enclosing %s,%s", ceiling, mergee));
             enclosingMerge(ceiling, mergee, ceiling);
         } else if (null != floor && floor.overlap(mergee)) {
             // f |=====|
             // m     |=====|
-//            System.out.println(String.format("add floor overlap %s,%s", floor, mergee));
+            LOGGER.debug(String.format("add floor overlap %s,%s", floor, mergee));
             leftMerge(floor, mergee, floor);
         } else if (null != ceiling && ceiling.overlap(mergee)) {
             // c     |=====|
             // m |=====|
-//            System.out.println(String.format("add ceiling overlap %s,%s", mergee, ceiling));
+            LOGGER.debug(String.format("add ceiling overlap %s,%s", mergee, ceiling));
             rightMerge(mergee, ceiling, ceiling);
         }
 
@@ -192,7 +195,7 @@ public class SupplyManager {
     private void addRecipe(Recipe recipe) {
         // m |
         if ( recipe.getPeriod().lowerEndpoint().equals(recipe.getPeriod().upperEndpoint())) {
-//            System.out.println(String.format("skip time point %s", recipe));
+            LOGGER.debug(String.format("skip time point %s", recipe));
             // Do nothing;
             return;
         }

@@ -2,7 +2,7 @@
 This project provides a shell to live query product using data loading from files. It answers the question that how many produce is available for the given time slot.
 
 #Execution
-This is a gradle project. You can run it by
+This is a gradle project using JDK 7. You can run it by
 $>./gradlew -q run
 
 ##Then you will see the shell prompt as

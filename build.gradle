@@ -23,11 +23,10 @@ repositories {
 dependencies {
     compile "org.springframework.shell:spring-shell:$springShellVersion"
     testCompile "junit:junit:$junitVersion"
-    runtime "log4j:log4j:$log4jVersion"
+    compile "log4j:log4j:$log4jVersion"
 
     compile "com.google.guava:guava:19.0"
     compile group: 'org.apache.commons', name: 'commons-csv', version: '1.4'
-
 }
 
 mainClassName = "org.springframework.shell.Bootstrap"
