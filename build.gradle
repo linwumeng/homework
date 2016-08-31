@@ -5,18 +5,29 @@ apply plugin: 'eclipse'
 apply plugin: 'application'
 
 repositories {
-	maven { url "http://repo.springsource.org/libs-milestone" }
-	maven { url "http://repo.springsource.org/libs-release" }
-	mavenLocal()
-	mavenCentral()
+    mavenLocal()
+    maven {
+        url "https://dcartifactory.service.dev/artifactory/csp-platform/"
+    }
+    maven {
+        url "https://dcartifactory.service.dev/artifactory/sbos-csp-libs/"
+    }
+    maven {
+        url "https://dcartifactory.service.dev/artifactory/plugins-release"
+    }
+    maven {
+        url "https://dcartifactory.service.dev/artifactory/jcenter"
+    }
 }
 
 dependencies {
-	compile "org.springframework.shell:spring-shell:$springShellVersion"
-	testCompile "junit:junit:$junitVersion"
-	runtime "log4j:log4j:$log4jVersion"
+    compile "org.springframework.shell:spring-shell:$springShellVersion"
+    testCompile "junit:junit:$junitVersion"
+    runtime "log4j:log4j:$log4jVersion"
 
     compile "com.google.guava:guava:19.0"
+    compile group: 'org.apache.commons', name: 'commons-csv', version: '1.4'
+
 }
 
 mainClassName = "org.springframework.shell.Bootstrap"

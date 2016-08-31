@@ -4,7 +4,6 @@ import com.google.common.base.Objects;
 import com.google.common.collect.Range;
 
 import java.util.Date;
-import java.util.Set;
 
 /**
  * Created by linwum on 2016/8/30.
@@ -15,9 +14,12 @@ public class Supply implements Comparable<Supply> {
     private int amount;
     private Material material;
 
-    public Supply(Date beginDate, Date endDate, int amount, Material material) {
+    public Supply(Date beginDate, Date endDate, int amount) {
         this.period = Range.closedOpen(beginDate, endDate);
         this.amount = amount;
+    }
+
+    public void setMaterial(Material material) {
         this.material = material;
     }
 
@@ -44,4 +46,21 @@ public class Supply implements Comparable<Supply> {
         return this.period.lowerEndpoint().compareTo(that.period.lowerEndpoint());
     }
 
+    public int supply(Range<Date> period) {
+        try {
+            if (this.period.intersection(period) != null) {
+                return amount;
+            }
+        } catch (Exception e) {}
+
+        return 0;
+    }
+
+    public void consume(Range<Date> period, int number) {
+        try {
+            if (this.period.intersection(period) != null) {
+                amount -= number;
+            }
+        } catch (Exception e) {}
+    }
 }
