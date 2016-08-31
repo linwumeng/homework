@@ -7,14 +7,14 @@ $>./gradlew -q run
 
 ##Then you will see the shell prompt as
 
-=======================================
-*                                     *
-*       Product Availability          *
-*                                     *
-=======================================
-Version:0.0.1
-Welcome to ProductAvailability CLI
-product-shell>
+    =======================================
+    *                                     *
+    *       Product Availability          *
+    *                                     *
+    =======================================
+    Version:0.0.1
+    Welcome to ProductAvailability CLI
+    product-shell>
 
 ##Use the command below to query
-product-shell>pt --product /Users/linwumeng/homework/product.csv --supply /Users/linwumeng/homework/supply.csv --id 98100201
+    product-shell>pt --product /Users/linwumeng/homework/product.csv --supply /Users/linwumeng/homework/supply.csv --id 98100201
