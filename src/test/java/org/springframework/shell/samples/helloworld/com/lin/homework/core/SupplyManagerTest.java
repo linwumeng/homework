@@ -1,11 +1,11 @@
 package org.springframework.shell.samples.helloworld.com.lin.homework.core;
 
 import com.google.common.collect.Range;
+import junit.framework.Assert;
 import junit.framework.TestCase;
 import org.springframework.shell.samples.helloworld.com.lin.homework.core.model.Material;
 import org.springframework.shell.samples.helloworld.com.lin.homework.core.model.Product;
 import org.springframework.shell.samples.helloworld.com.lin.homework.core.model.Supply;
-import sun.jvm.hotspot.utilities.Assert;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -35,7 +35,7 @@ public class SupplyManagerTest extends TestCase {
         product.addMaterial(m2);
 
         List<Map<Range, Integer>> result = product.reportAvailability();
-        Assert.that(result.size() == 1, "Only one available period");
-        Assert.that(result.get(0).values().iterator().next() == 4, "4 Products available");
+        Assert.assertEquals(result.size(), 1);
+        Assert.assertEquals(result.get(0).values().iterator().next().intValue(), 4);
     }
 }
